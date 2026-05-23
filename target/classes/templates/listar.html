@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda Fútbol - Lista</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-success">
+    <div class="container">
+        <span class="navbar-brand fw-bold">⚽ Agenda de Fútbol</span>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-success">📋 Lista de Jugadores</h2>
+        <a th:href="@{/jugadores/nuevo}" class="btn btn-success">➕ Agregar</a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(jugadores)}" class="alert alert-warning text-center">
+        No hay jugadores registrados. ¡Agrega el primero!
+    </div>
+
+    <div th:unless="${#lists.isEmpty(jugadores)}">
+        <table class="table table-striped table-hover table-bordered shadow-sm">
+            <thead class="table-success text-center">
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr th:each="jugador, stat : ${jugadores}">
+                    <td th:text="${stat.count}"></td>
+                    <td th:text="${jugador.id}"></td>
+                    <td th:text="${jugador.nombre}"></td>
+                    <td th:text="${jugador.telefono}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="text-muted text-end">
+            Total: <strong th:text="${#lists.size(jugadores)}"></strong> jugador(es)
+        </p>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
